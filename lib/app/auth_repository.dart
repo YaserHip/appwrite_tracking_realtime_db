@@ -1,5 +1,5 @@
 import 'package:appwrite/appwrite.dart';
-import 'package:appwrite_tracking_realtime_db/project_providers.dart';
+import 'package:appwrite_tracking_realtime_db/app/project_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AuthRepository {
