@@ -16,6 +16,28 @@ class LoginController extends StateNotifier<AsyncValue<void>> {
     }
     return state.hasError == false;
   }
+
+  Future<bool> magicURLSession(String email) async {
+    try {
+      state = const AsyncLoading();
+      final value = await authRepository.magicURLSession(email);
+      state = AsyncData(value);
+    } on Exception catch (e) {
+      state = AsyncError(e);
+    }
+    return state.hasError == false;
+  }
+
+  Future<bool> magicURLSessionConfirmation(String secret) async {
+    try {
+      state = const AsyncLoading();
+      final value = await authRepository.magicURLSessionConfirmation(secret);
+      state = AsyncData(value);
+    } on Exception catch (e) {
+      state = AsyncError(e);
+    }
+    return state.hasError == false;
+  }
 }
 
 final loginControllerProvider =
