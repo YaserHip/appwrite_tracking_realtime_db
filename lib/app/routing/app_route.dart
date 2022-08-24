@@ -6,4 +6,15 @@ enum AppRoute {
   home,
 }
 
-final goRouterProvider = Provider<GoRoute>();
+final goRouterProvider = Provider<GoRouter>((ref) => {
+  return GoRouter(
+
+  initialLocation: '/',
+  debugLogDiagnostics: false,
+  routes: [
+    GoRoute(path: '/',
+    name: AppRoute.home.name)
+  ]
+    
+  );
+});
