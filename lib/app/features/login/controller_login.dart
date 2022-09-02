@@ -1,15 +1,15 @@
-import 'package:appwrite_tracking_realtime_db/app/auth_repository.dart';
+import 'package:appwrite_tracking_realtime_db/app/features/login/repository_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginController extends StateNotifier<AsyncValue<void>> {
-  LoginController({required this.authRepository})
+  LoginController({required this.repositoryAuth})
       : super(const AsyncData(null));
-  final AuthRepository authRepository;
+  final RepositoryAuth repositoryAuth;
 
   Future<bool> oAuth2Session(String provider) async {
     try {
       state = const AsyncLoading();
-      final value = await authRepository.oAuth2Session(provider);
+      final value = await repositoryAuth.oAuth2Session(provider);
       state = AsyncData(value);
     } on Exception catch (e) {
       state = AsyncError(e);
@@ -20,7 +20,7 @@ class LoginController extends StateNotifier<AsyncValue<void>> {
   Future<bool> magicURLSession(String email) async {
     try {
       state = const AsyncLoading();
-      final value = await authRepository.magicURLSession(email);
+      final value = await repositoryAuth.magicURLSession(email);
       state = AsyncData(value);
     } on Exception catch (e) {
       state = AsyncError(e);
@@ -31,7 +31,7 @@ class LoginController extends StateNotifier<AsyncValue<void>> {
   Future<bool> magicURLSessionConfirmation(String secret) async {
     try {
       state = const AsyncLoading();
-      final value = await authRepository.magicURLSessionConfirmation(secret);
+      final value = await repositoryAuth.magicURLSessionConfirmation(secret);
       state = AsyncData(value);
     } on Exception catch (e) {
       state = AsyncError(e);
@@ -42,5 +42,5 @@ class LoginController extends StateNotifier<AsyncValue<void>> {
 
 final loginControllerProvider =
     StateNotifierProvider<LoginController, AsyncValue<void>>((ref) {
-  return LoginController(authRepository: ref.watch(authRepositoryProvider));
+  return LoginController(repositoryAuth: ref.watch(repositoryAuthProvider));
 });

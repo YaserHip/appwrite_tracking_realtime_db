@@ -1,15 +1,19 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite/models.dart';
-import 'package:appwrite_tracking_realtime_db/app/project_providers.dart';
+import 'package:appwrite_tracking_realtime_db/app/app_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AuthRepository {
-  AuthRepository({required this.account});
+class RepositoryAuth {
+  RepositoryAuth({required this.account});
   final Account account;
   String userID = "";
+  Map<String, dynamic> userMap = {};
 
   Future<void> oAuth2Session(String provider) async {
-    return await account.createOAuth2Session(provider: provider);
+    final value = await account.createOAuth2Session(provider: provider);
+    var user = await account.get();
+    userMap = user.toMap();
+    return value;
   }
 
   Future<Token> magicURLSession(String email) async {
@@ -24,5 +28,5 @@ class AuthRepository {
   }
 }
 
-final authRepositoryProvider = Provider<AuthRepository>(
-    (ref) => AuthRepository(account: ref.watch(AWAccountProvider)));
+final repositoryAuthProvider = Provider<RepositoryAuth>(
+    (ref) => RepositoryAuth(account: ref.watch(AWAccountProvider)));
