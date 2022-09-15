@@ -7,12 +7,11 @@ class RepositoryAuth {
   RepositoryAuth({required this.account});
   final Account account;
   String userID = "";
-  Map<String, dynamic> userMap = {};
 
   Future<void> oAuth2Session(String provider) async {
     final value = await account.createOAuth2Session(provider: provider);
     var user = await account.get();
-    userMap = user.toMap();
+    userID = user.$id;
     return value;
   }
 

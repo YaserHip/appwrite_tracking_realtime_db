@@ -1,5 +1,4 @@
-import 'package:appwrite/models.dart';
-import 'package:appwrite_tracking_realtime_db/app/features/login/repository_auth.dart';
+import 'package:appwrite_tracking_realtime_db/app/features/home/controller_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,12 +7,11 @@ class PageHome extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final accountProvider = ref.watch(repositoryAuthProvider);
-    User user = User.fromMap(accountProvider.userMap);
+    final accountProvider = ref.watch(providerControllerHome);
     return Scaffold(
       body: Center(
           child: Text(
-        'userID: ${user.toMap()}',
+        'userID: ${accountProvider.userID}',
         style: const TextStyle(fontSize: 11, color: Colors.amber),
       )),
     );

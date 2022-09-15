@@ -1,8 +1,8 @@
 import 'package:appwrite_tracking_realtime_db/app/features/login/repository_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginController extends StateNotifier<AsyncValue<void>> {
-  LoginController({required this.repositoryAuth})
+class ControllerLogin extends StateNotifier<AsyncValue<void>> {
+  ControllerLogin({required this.repositoryAuth})
       : super(const AsyncData(null));
   final RepositoryAuth repositoryAuth;
 
@@ -41,6 +41,6 @@ class LoginController extends StateNotifier<AsyncValue<void>> {
 }
 
 final loginControllerProvider =
-    StateNotifierProvider<LoginController, AsyncValue<void>>((ref) {
-  return LoginController(repositoryAuth: ref.watch(repositoryAuthProvider));
+    StateNotifierProvider<ControllerLogin, AsyncValue<void>>((ref) {
+  return ControllerLogin(repositoryAuth: ref.watch(repositoryAuthProvider));
 });
