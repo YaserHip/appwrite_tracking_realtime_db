@@ -8,12 +8,6 @@ class PageHome extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final accountProvider = ref.watch(providerControllerHome);
-    return Scaffold(
-      body: Center(
-          child: Text(
-        'userID: ${accountProvider.userID}',
-        style: const TextStyle(fontSize: 11, color: Colors.amber),
-      )),
-    );
+    return Scaffold(body: Container());
   }
 }
