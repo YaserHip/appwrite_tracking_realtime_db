@@ -12,11 +12,8 @@ class PageLogin extends ConsumerStatefulWidget {
 }
 
 class _PageLoginState extends ConsumerState<PageLogin> {
-  final _phoneController = TextEditingController();
-
   @override
   void dispose() {
-    _phoneController.dispose();
     super.dispose();
   }
 

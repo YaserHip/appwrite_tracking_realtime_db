@@ -14,6 +14,12 @@ class ControllerLogin extends StateNotifier<AsyncValue<void>> {
     } on Exception catch (e) {
       state = AsyncError(e);
     }
+
+    if (!state.hasError) {
+      final value = await repositoryAuth.checkIfUserExist();
+      print()
+    }
+
     return state.hasError == false;
   }
 
