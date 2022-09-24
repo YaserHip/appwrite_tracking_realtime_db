@@ -32,6 +32,10 @@ class RepositoryAuth {
     return await databases.getDocument(
         collectionId: AWPaths().usersCollection, documentId: userID);
   }
+
+  Future<void> createUserDocument() async {
+    return await databases.createDocument(collectionId: , documentId: documentId, data: data)
+  }
 }
 
 final repositoryAuthProvider = Provider<RepositoryAuth>((ref) => RepositoryAuth(

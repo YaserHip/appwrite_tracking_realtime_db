@@ -1,4 +1,4 @@
 class AWPaths {
-  final String databaseID = "630b0ecb2da47e6c3c60";
-  final String usersCollection = "630c4905a2d4dd1a5e8e";
+  final String databaseID = "6322b68b9485bdad535f";
+  final String usersCollection = "632aa547131f0b36dc8a";
 }

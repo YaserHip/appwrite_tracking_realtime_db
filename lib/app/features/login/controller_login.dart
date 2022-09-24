@@ -16,8 +16,12 @@ class ControllerLogin extends StateNotifier<AsyncValue<void>> {
     }
 
     if (!state.hasError) {
-      final value = await repositoryAuth.checkIfUserExist();
-      print()
+      try {
+        final value = await repositoryAuth.checkIfUserExist();
+        print("CHECKIFEXIST: $value");
+      } on Exception catch (e) {
+        print("CHECKIFEXIST: ${e.toString()}");
+      }
     }
 
     return state.hasError == false;
