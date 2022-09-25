@@ -30,11 +30,11 @@ class RepositoryAuth {
 
   Future<Document> checkIfUserExist() async {
     return await databases.getDocument(
-        collectionId: AWPaths().usersCollection, documentId: userID);
+        collectionId: AWPaths().userInfoCollection, documentId: userID);
   }
 
   Future<void> createUserDocument() async {
-    return await databases.createDocument(collectionId: , documentId: documentId, data: data)
+    return;
   }
 }
 

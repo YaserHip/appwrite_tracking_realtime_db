@@ -13,7 +13,7 @@ class RepositoryHome {
 
   Future<Document> checkIfUserExist() async {
     return await databases.getDocument(
-        collectionId: AWPaths().usersCollection, documentId: userID);
+        collectionId: AWPaths().userInfoCollection, documentId: userID);
   }
 }
 
