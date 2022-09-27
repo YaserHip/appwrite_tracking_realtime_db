@@ -33,8 +33,11 @@ class RepositoryAuth {
         collectionId: AWPaths().userInfoCollection, documentId: userID);
   }
 
-  Future<void> createUserDocument() async {
-    return;
+  Future<Document> createUserDocument() async {
+    return await databases.createDocument(
+        collectionId: AWPaths().userInfoCollection,
+        documentId: userID,
+        data: {'lat': '0', 'lon': '0'});
   }
 }
 
