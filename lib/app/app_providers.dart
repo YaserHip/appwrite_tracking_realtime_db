@@ -8,7 +8,7 @@ final AWClientProvider = Provider<Client>((ref) {
   Client client = Client();
   client
       .setEndpoint(
-          'https://fbb4-2806-2f0-20c0-30e8-1c0e-87ba-892b-57d7.ngrok.io/v1')
+          'https://005c-2806-2f0-20c0-30e8-79ec-eb1c-5e1f-29d9.ngrok.io/v1')
       .setProject('633088dbd2a6daa85866');
   return client;
 });
@@ -22,5 +22,12 @@ final AWDatabaseProvider = Provider<Databases>(
   (ref) {
     final AWClient = ref.watch(AWClientProvider);
     return Databases(AWClient, databaseId: AWPaths().databaseID);
+  },
+);
+
+final AWRealTimeProvider = Provider<Realtime>(
+  (ref) {
+    final AWClient = ref.watch(AWClientProvider);
+    return Realtime(AWClient);
   },
 );
