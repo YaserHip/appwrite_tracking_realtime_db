@@ -8,7 +8,7 @@ final AWClientProvider = Provider<Client>((ref) {
   Client client = Client();
   client
       .setEndpoint(
-          'https://005c-2806-2f0-20c0-30e8-79ec-eb1c-5e1f-29d9.ngrok.io/v1')
+          'https://da74-2806-2f0-20c0-30e8-430b-1f3f-84e-aeb8.ngrok.io/v1')
       .setProject('633088dbd2a6daa85866');
   return client;
 });

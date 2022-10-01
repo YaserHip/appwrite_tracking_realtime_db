@@ -11,8 +11,8 @@ class ControllerLogin extends StateNotifier<AsyncValue<void>> {
       state = const AsyncLoading();
       final value = await repositoryAuth.oAuth2Session(provider);
       state = AsyncData(value);
-    } on Exception catch (e) {
-      state = AsyncError(e);
+    } on Exception catch (e, trace) {
+      state = AsyncError(e, trace);
     }
 
     if (!state.hasError) {
@@ -33,8 +33,8 @@ class ControllerLogin extends StateNotifier<AsyncValue<void>> {
       state = const AsyncLoading();
       final value = await repositoryAuth.magicURLSession(email);
       state = AsyncData(value);
-    } on Exception catch (e) {
-      state = AsyncError(e);
+    } on Exception catch (e, trace) {
+      state = AsyncError(e, trace);
     }
     return state.hasError == false;
   }
@@ -44,8 +44,8 @@ class ControllerLogin extends StateNotifier<AsyncValue<void>> {
       state = const AsyncLoading();
       final value = await repositoryAuth.magicURLSessionConfirmation(secret);
       state = AsyncData(value);
-    } on Exception catch (e) {
-      state = AsyncError(e);
+    } on Exception catch (e, trace) {
+      state = AsyncError(e, trace);
     }
     return state.hasError == false;
   }
