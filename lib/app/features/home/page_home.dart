@@ -7,7 +7,18 @@ class PageHome extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final accountProvider = ref.watch(providerControllerHome);
-    return Scaffold(body: Container());
+    final streamLocationProvider = ref.watch(providerStreamLocationFromDB);
+    return Scaffold(
+        body: Center(
+      child: Container(
+        child: streamLocationProvider.when(data: (data) {
+          return Text('lat: ${data.lat}, lon: ${data.lon}');
+        }, error: (e, r) {
+          return Text(e.toString());
+        }, loading: () {
+          return const CircularProgressIndicator();
+        }),
+      ),
+    ));
   }
 }

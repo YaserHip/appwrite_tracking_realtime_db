@@ -3,12 +3,13 @@
 import 'package:appwrite/appwrite.dart';
 import 'package:appwrite_tracking_realtime_db/app/aw_paths.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:location/location.dart';
 
 final AWClientProvider = Provider<Client>((ref) {
   Client client = Client();
   client
       .setEndpoint(
-          'https://391f-2806-2f0-20c0-30e8-1a61-3411-764f-2fc9.ngrok.io/v1')
+          'https://afc9-2806-2f0-20c0-30e8-f85b-877a-5f01-118a.ngrok.io/v1')
       .setProject('633088dbd2a6daa85866');
   return client;
 });
@@ -30,4 +31,8 @@ final AWRealTimeProvider = Provider<Realtime>(
     final AWClient = ref.watch(AWClientProvider);
     return Realtime(AWClient);
   },
+);
+
+final locationServiceProvider = Provider<Location>(
+  (ref) => Location(),
 );

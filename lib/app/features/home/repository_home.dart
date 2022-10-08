@@ -11,8 +11,9 @@ class RepositoryHome {
   Realtime realtime;
 
   RealtimeSubscription getLocationFromDB() {
-    return realtime.subscribe(
-        ['collections.${AWPaths().userInfoCollection}.documents.$userID']);
+    return realtime.subscribe([
+      'databases.${AWPaths().databaseID}.collections.${AWPaths().userInfoCollection}.documents.$userID'
+    ]);
   }
 }
 

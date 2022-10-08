@@ -1,10 +1,17 @@
+import 'dart:html';
+
+import 'package:appwrite_tracking_realtime_db/app/app_providers.dart';
 import 'package:appwrite_tracking_realtime_db/app/features/login/repository_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:location/location.dart';
 
 class ControllerLogin extends StateNotifier<AsyncValue<void>> {
-  ControllerLogin({required this.repositoryAuth})
-      : super(const AsyncData(null));
+  ControllerLogin({
+    required this.repositoryAuth,
+    required this.location,
+  }) : super(const AsyncData(null));
   final RepositoryAuth repositoryAuth;
+  final Location location;
 
   Future<bool> oAuth2Session(String provider) async {
     try {
@@ -49,9 +56,30 @@ class ControllerLogin extends StateNotifier<AsyncValue<void>> {
     }
     return state.hasError == false;
   }
+
+  Future<bool> checkLocationPermissions() async {
+    bool serviceEnabled;
+    PermissionStatus permissionStatus;
+
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) return false;
+    }
+
+    permissionStatus = await location.hasPermission();
+    if (permissionStatus == PermissionStatus.denied) {
+      permissionStatus = await location.requestPermission();
+      if (permissionStatus != PermissionStatus.granted) return false;
+    }
+
+    return true;
+  }
 }
 
 final loginControllerProvider =
     StateNotifierProvider<ControllerLogin, AsyncValue<void>>((ref) {
-  return ControllerLogin(repositoryAuth: ref.watch(repositoryAuthProvider));
+  return ControllerLogin(
+      repositoryAuth: ref.watch(repositoryAuthProvider),
+      location: ref.watch(locationServiceProvider));
 });

@@ -37,6 +37,7 @@ dependencies:
   go_router: ^4.2.9
   flutter_riverpod: ^2.0.0-dev.9
   appwrite: ^6.0.0
+  location: ^4.4.0
 
 dev_dependencies:
   flutter_test:

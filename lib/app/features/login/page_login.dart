@@ -32,11 +32,17 @@ class _PageLoginState extends ConsumerState<PageLogin> {
                     ElevatedButton(
                       child: const Text("Google"),
                       onPressed: () async {
-                        final success = await ref
+                        final isLocationGranted = await ref
                             .read(loginControllerProvider.notifier)
-                            .oAuth2Session("google");
-                        if (success) {
-                          nav.goNamed(AppRoute.home.name);
+                            .checkLocationPermissions();
+
+                        if (isLocationGranted) {
+                          final success = await ref
+                              .read(loginControllerProvider.notifier)
+                              .oAuth2Session("google");
+                          if (success) {
+                            nav.goNamed(AppRoute.home.name);
+                          }
                         }
                       },
                     ),
