@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:appwrite_tracking_realtime_db/app/app_providers.dart';
 import 'package:appwrite_tracking_realtime_db/app/features/login/repository_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
