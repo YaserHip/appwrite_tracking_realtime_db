@@ -12,7 +12,6 @@ class RepositoryAuth {
 
   Future<void> oAuth2Session(String provider) async {
     final value = await account.createOAuth2Session(provider: provider);
-    print("account infor: ${await account.get()}");
     var user = await account.get();
 
     userID = user.$id;

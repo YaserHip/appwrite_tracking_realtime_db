@@ -18,6 +18,16 @@ class _PageLoginState extends ConsumerState<PageLogin> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _getLocationPermission();
+  }
+
+  _getLocationPermission() async {
+    await ref.read(loginControllerProvider.notifier).checkLocationPermissions();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final state = ref.watch(loginControllerProvider);
     final nav = GoRouter.of(context);
