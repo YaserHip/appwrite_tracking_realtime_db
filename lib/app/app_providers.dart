@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:async';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
@@ -37,4 +39,14 @@ final locationServiceProvider = Provider<Location>(
     location.enableBackgroundMode(enable: true);
     return location;
   }),
+);
+
+final streamControllerLocationProvider = Provider<StreamController>(
+  (ref) {
+    StreamController controller = StreamController();
+    ref.onDispose(() {
+      controller.close();
+    });
+    return controller;
+  },
 );

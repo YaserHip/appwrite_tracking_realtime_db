@@ -22,6 +22,10 @@ class ControllerHome extends StateNotifier<AsyncValue<void>> {
       }
     });
   }
+
+  Future<void> updateLocationDB(String lat, String lon) async {
+    await repositoryHome.updateLocationDB(lat, lon);
+  }
 }
 
 final providerControllerHome =

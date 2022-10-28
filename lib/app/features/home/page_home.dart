@@ -1,7 +1,9 @@
+import 'package:appwrite_tracking_realtime_db/app/app_providers.dart';
 import 'package:appwrite_tracking_realtime_db/app/features/home/controller_home.dart';
 import 'package:appwrite_tracking_realtime_db/app/features/models/model_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:location/location.dart';
 
 class PageHome extends ConsumerWidget {
   const PageHome({Key? key}) : super(key: key);
@@ -9,15 +11,14 @@ class PageHome extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final streamLocationProvider = ref.watch(providerStreamLocationFromDB);
-    final streamLocationListener = ref.watch(providerStreamLocation);
     return Scaffold(
         body: Center(
-      child: Container(
-          child: Column(
+      child: Column(
         children: [
           containerLatLonInformation(streamLocationProvider),
+          containerButtonActive(ref)
         ],
-      )),
+      ),
     ));
   }
 
@@ -31,4 +32,28 @@ class PageHome extends ConsumerWidget {
           return const CircularProgressIndicator();
         }),
       ));
+
+  Widget containerButtonActive(WidgetRef ref) {
+    final streamLocationListener = ref.watch(providerStreamLocation.stream);
+    final streamController = ref.watch(streamControllerLocationProvider);
+    final controllerHome = ref.watch(providerControllerHome.notifier);
+
+    return ElevatedButton(
+      child: streamController.hasListener
+          ? const Text("Disable")
+          : const Text("Enable"),
+      onPressed: () async {
+        if (streamController.hasListener) {
+          await streamController.close();
+        } else {
+          streamController.addStream(streamLocationListener);
+          streamController.stream.listen((event) async {
+            LocationData data = event;
+            await controllerHome.updateLocationDB(
+                "${data.latitude}", "${data.longitude}");
+          });
+        }
+      },
+    );
+  }
 }
