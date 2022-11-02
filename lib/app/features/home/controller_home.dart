@@ -43,6 +43,7 @@ final providerStreamLocationFromDB = StreamProvider.autoDispose<ModelLocation>(
 final providerStreamLocation = StreamProvider.autoDispose<LocationData>(
   (ref) {
     final location = ref.read(locationServiceProvider);
+    location.enableBackgroundMode(enable: true);
     return location.onLocationChanged;
   },
 );

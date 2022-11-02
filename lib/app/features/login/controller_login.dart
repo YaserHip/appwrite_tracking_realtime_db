@@ -55,6 +55,11 @@ class ControllerLogin extends StateNotifier<AsyncValue<void>> {
     return state.hasError == false;
   }
 
+  Future<void> askForLocationPermission() async {
+    await location.requestService();
+    await location.requestPermission();
+  }
+
   Future<bool> checkLocationPermissions() async {
     bool serviceEnabled;
     PermissionStatus permissionStatus;

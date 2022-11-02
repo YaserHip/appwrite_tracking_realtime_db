@@ -35,7 +35,7 @@ class PageHome extends ConsumerWidget {
 
   Widget containerButtonActive(WidgetRef ref) {
     final streamLocationListener = ref.watch(providerStreamLocation.stream);
-    final streamController = ref.watch(streamControllerLocationProvider);
+    final streamController = ref.read(streamControllerLocationProvider);
     final controllerHome = ref.watch(providerControllerHome.notifier);
 
     return ElevatedButton(

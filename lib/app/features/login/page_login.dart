@@ -24,7 +24,7 @@ class _PageLoginState extends ConsumerState<PageLogin> {
   }
 
   _getLocationPermission() async {
-    await ref.read(loginControllerProvider.notifier).checkLocationPermissions();
+    await ref.read(loginControllerProvider.notifier).askForLocationPermission();
   }
 
   @override
