@@ -16,7 +16,8 @@ class PageHome extends ConsumerWidget {
       child: Column(
         children: [
           containerLatLonInformation(streamLocationProvider),
-          containerButtonActive(ref)
+          //containerButtonActive(ref).
+          buttonActivateListening(ref)
         ],
       ),
     ));
@@ -55,5 +56,28 @@ class PageHome extends ConsumerWidget {
         }
       },
     );
+  }
+
+  Widget buttonActivateListening(WidgetRef ref) {
+    final streamLocationListener = ref.watch(providerStreamLocation.stream);
+    final controllerHome = ref.watch(providerControllerHome.notifier);
+    return ElevatedButton(
+        onPressed: () {
+          streamLocationListener.listen((event) async {
+            await controllerHome.updateLocationDB(
+                "${event.latitude}", "${event.longitude}");
+          });
+        },
+        child: StreamBuilder(
+          stream: streamLocationListener,
+          builder: (context, snapshot) {
+            print("STATUS: ${snapshot.hasData}");
+            if (snapshot.hasData == true) {
+              return const Text("Disable");
+            } else {
+              return const Text("Enable");
+            }
+          },
+        ));
   }
 }

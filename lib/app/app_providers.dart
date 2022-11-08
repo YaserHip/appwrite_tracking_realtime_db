@@ -36,7 +36,6 @@ final AWRealTimeProvider = Provider<Realtime>(
 final locationServiceProvider = Provider<Location>(
   ((ref) {
     final location = Location();
-    location.enableBackgroundMode(enable: true);
     return location;
   }),
 );
