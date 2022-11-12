@@ -1,6 +1,7 @@
 import 'package:appwrite_tracking_realtime_db/app/app_providers.dart';
 import 'package:appwrite_tracking_realtime_db/app/features/home/controller_home.dart';
 import 'package:appwrite_tracking_realtime_db/app/features/models/model_location.dart';
+import 'package:appwrite_tracking_realtime_db/app/tools/service_location.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
@@ -17,7 +18,7 @@ class PageHome extends ConsumerWidget {
         children: [
           containerLatLonInformation(streamLocationProvider),
           //containerButtonActive(ref).
-          buttonActivateListening(ref)
+          buttonActivateLocationService(ref)
         ],
       ),
     ));
@@ -56,6 +57,21 @@ class PageHome extends ConsumerWidget {
         }
       },
     );
+  }
+
+  Widget buttonActivateLocationService(WidgetRef ref) {
+    final serviceLocation = ref.watch(providerServiceLocation);
+    return ElevatedButton(
+        onPressed: () {
+          if (serviceLocation.hasListener) {
+            serviceLocation.stopService();
+          } else {
+            serviceLocation.startService();
+          }
+        },
+        child: serviceLocation.hasListener
+            ? const Text("Stop")
+            : const Text("Start"));
   }
 
   Widget buttonActivateListening(WidgetRef ref) {
