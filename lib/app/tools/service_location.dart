@@ -9,28 +9,27 @@ class ServiceLocation {
   final Location location;
   final ControllerHome controllerHome;
   StreamController streamController = StreamController();
+  bool isActive = false;
+  StreamSubscription? subscription;
 
-  void startService() {
-    streamController = StreamController();
-    streamController.add(location.onLocationChanged);
-    streamController.stream.listen((event) async {
-      print("MAPThiNGS: $event");
-      //LocationData data = event;
-      /* await controllerHome.updateLocationDB(
-          "${data.latitude}", "${data.longitude}"); */
+  void startService() async {
+    subscription = location.onLocationChanged.listen((event) async {
+      await controllerHome.updateLocationDB(
+          "${event.latitude}", "${event.longitude}");
     });
+    isActive = true;
   }
 
-  get hasListener => streamController.hasListener;
+  get isEnable => isActive;
 
   void stopService() {
-    streamController.close();
+    isActive = false;
+    subscription?.cancel();
   }
 }
 
 final providerServiceLocation = Provider<ServiceLocation>((ref) {
   final location = ref.watch(locationServiceProvider);
   final controllerHome = ref.watch(providerControllerHome.notifier);
-
   return ServiceLocation(controllerHome: controllerHome, location: location);
 });

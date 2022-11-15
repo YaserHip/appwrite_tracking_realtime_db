@@ -62,14 +62,16 @@ class PageHome extends ConsumerWidget {
   Widget buttonActivateLocationService(WidgetRef ref) {
     final serviceLocation = ref.watch(providerServiceLocation);
     return ElevatedButton(
-        onPressed: () {
-          if (serviceLocation.hasListener) {
+        onPressed: () async {
+          if (serviceLocation.isEnable) {
             serviceLocation.stopService();
+            print("SERVICE STOPED");
           } else {
             serviceLocation.startService();
+            print("SERVICE STARTED");
           }
         },
-        child: serviceLocation.hasListener
+        child: serviceLocation.isEnable
             ? const Text("Stop")
             : const Text("Start"));
   }
