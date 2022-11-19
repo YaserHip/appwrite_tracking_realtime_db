@@ -15,6 +15,7 @@ class PageHome extends ConsumerWidget {
     return Scaffold(
         body: Center(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           containerLatLonInformation(streamLocationProvider),
           //containerButtonActive(ref).
