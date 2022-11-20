@@ -5,8 +5,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:location/location.dart';
 
 class ControllerHome extends StateNotifier<AsyncValue<void>> {
-  ControllerHome({required this.repositoryHome}) : super(const AsyncData(null));
+  ControllerHome({required this.repositoryHome, required this.location})
+      : super(const AsyncData(null));
   final RepositoryHome repositoryHome;
+  final Location location;
+  bool isActive = false;
 
   Stream<ModelLocation> getLocationFromDB() {
     return repositoryHome.getLocationFromDB().stream.map((event) {
@@ -30,20 +33,14 @@ class ControllerHome extends StateNotifier<AsyncValue<void>> {
 
 final providerControllerHome =
     StateNotifierProvider<ControllerHome, AsyncValue<void>>(
-  (ref) => ControllerHome(repositoryHome: ref.watch(repositoryHomeProvider)),
+  (ref) => ControllerHome(
+      repositoryHome: ref.watch(repositoryHomeProvider),
+      location: ref.watch(locationServiceProvider)),
 );
 
 final providerStreamLocationFromDB = StreamProvider.autoDispose<ModelLocation>(
   (ref) {
     final controllerHome = ref.read(providerControllerHome.notifier);
     return controllerHome.getLocationFromDB();
-  },
-);
-
-final providerStreamLocation = StreamProvider.autoDispose<LocationData>(
-  (ref) {
-    final location = ref.read(locationServiceProvider);
-    location.enableBackgroundMode(enable: true);
-    return location.onLocationChanged;
   },
 );
